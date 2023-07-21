@@ -19,8 +19,15 @@ int main()
            std::cout << "Введите слово: "; std::cin >> word;   
            try {
            std::cout << function(word, forb_lengh) << std::endl;
-           }catch(const int &bad_length) { std::cout << "Вы ввели слово запретной длины! До свидания"; break; }
-            
+           }catch(const std::runtime_error&bad_length){ //по вебинару
+           std::cout << bad_length.what() << std::endl; //по вебинару
+           std::cout << "Вы ввели слово запретной длины! До свидания"; break;}//оставил и там и там -{условие и пример}не корректны
+           //там просят бросить bad_length, а выводят:  Вы ввели слово запретной длины! До свидания
+           
+           /*мой начальный рабочий вариант: 
+           catch(const int &bad_length) {            
+           std::cout << "Вы ввели слово запретной длины! До свидания"; break;}
+           */
     }
     return 0;
 }
@@ -28,7 +35,13 @@ int main()
 int function(string str, int forbidden_length) {
           
           if (forbidden_length == str.length())
-              throw forbidden_length;
+              throw  std::runtime_error("bad_length");//вариант по вебинару 
+            
+            
+            /*мой начальный рабочий вариант :
+               throw forbidden_length; */
+
+
           else {
               std::cout << "Длина слова " << str << " равна ";
               return str.length();
